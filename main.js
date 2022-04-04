@@ -10,3 +10,4 @@ k.add([
 k.onClick(() => k.go("start"))
 
 //test
+//test 2
