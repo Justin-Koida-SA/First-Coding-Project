@@ -8,4 +8,7 @@ export const k = kaboom({
     canvas: document.querySelector("#mycanvas"),
     background: [ 0, 0, 255, ],
     global: false
-});
+}); 
+
+
+//test edit
