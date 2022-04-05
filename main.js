@@ -1,13 +1,13 @@
-import {k} from "./kaboom.js"
+import "./kaboom.js"
 
 // add a piece of text at position (120, 80)
-k.add([
-    k.scale(2),
-    k.text("hellooo world"),
-    k.pos(50, 80),
+add([
+    scale(2),
+    text("hellooo wwagarorld"),
+    pos(50, 80),
 ]);
 
-k.onClick(() => k.go("start"))
+onClick(() => go("start"))
 
 //test
 //test 2
