@@ -1,14 +1,13 @@
 import "./kaboom.js"
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
+
 scene("start", () => {
     add([
         scale(2),
         text("start screen!"),
         pos(50, 80),
     ])
-=======
+
 // Extend our game with multiple scenes
 
 // Start game
@@ -24,7 +23,6 @@ loadSprite("portal", "/sprites/blackking.png")
 // loadSound("score", "/sounds/score.mp3")
 // loadSound("portal", "/sounds/portal.mp3")
 
-=======
 // Extend our game with multiple scenes
 
 // Start game
@@ -39,7 +37,7 @@ loadSprite("ghosty", "/sprites/ghosty.png")
 loadSprite("portal", "/sprites/portal.png")
 loadSound("score", "/sounds/score.mp3")
 loadSound("portal", "/sounds/portal.mp3")
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
 
 const SPEED = 480
 
@@ -70,10 +68,9 @@ scene("game", ({ levelIdx, score }) => {
 			sprite("bean"),
 			area(),
 			body(),
-<<<<<<< HEAD
+
       scale(.3),
-=======
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
 			origin("bot"),
 			"player",
 		],
@@ -81,39 +78,35 @@ scene("game", ({ levelIdx, score }) => {
 			sprite("grass"),
 			area(),
 			solid(),
-<<<<<<< HEAD
+
       scale(.3),
-=======
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
 			origin("bot"),
 		],
 		"$": () => [
 			sprite("coin"),
 			area(),
-<<<<<<< HEAD
+
       scale(.3),
-=======
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
 			origin("bot"),
 			"coin",
 		],
 		"^": () => [
 			sprite("spike"),
 			area(),
-<<<<<<< HEAD
+
       scale(.3),
-=======
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
 			origin("bot"),
 			"danger",
 		],
 		">": () => [
 			sprite("portal"),
 			area(),
-<<<<<<< HEAD
+
       scale(.3),
-=======
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
 			origin("bot"),
 			"portal",
 		],
@@ -145,10 +138,8 @@ scene("game", ({ levelIdx, score }) => {
 
 	player.onCollide("coin", (coin) => {
 		destroy(coin)
-<<<<<<< HEAD
-=======
-		play("score")
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
+	
 		score++
 		scoreLabel.text = score
 	})
@@ -162,11 +153,7 @@ scene("game", ({ levelIdx, score }) => {
 
 	// Enter the next level on portal
 	player.onCollide("portal", () => {
-<<<<<<< HEAD
 
-=======
-		play("portal")
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
 		if (levelIdx < LEVELS.length - 1) {
 			// If there's a next level, go() to the same scene but load the next level
 			go("game", {
@@ -197,10 +184,7 @@ scene("lose", () => {
 	// Press any key to go back
 	onKeyPress(start)
 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 3f030818d08a13792d4f33b986c8ad22ac4cefc5
+
 })
 
 scene("win", ({ score }) => {
@@ -215,6 +199,23 @@ scene("win", ({ score }) => {
 	onKeyPress(start)
 
 })
+
+
+})
+
+scene("win", ({ score }) => {
+
+	add([
+		text(`You grabbed ${score} coins!!!`, {
+			width: width(),
+		}),
+		pos(12),
+	])
+
+	onKeyPress(start)
+
+})
+
 
 function start() {
 	// Start with the "game" scene, with initial parameters
