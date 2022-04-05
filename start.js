@@ -8,6 +8,9 @@ scene("start", () => {
         pos(50, 80),
     ])
 
+
+
+
 // Extend our game with multiple scenes
 
 // Start game
@@ -23,20 +26,7 @@ loadSprite("portal", "/sprites/blackking.png")
 // loadSound("score", "/sounds/score.mp3")
 // loadSound("portal", "/sounds/portal.mp3")
 
-// Extend our game with multiple scenes
 
-// Start game
-kaboom()
-
-// Load assets
-loadSprite("bean", "/sprites/bean.png")
-loadSprite("coin", "/sprites/coin.png")
-loadSprite("spike", "/sprites/spike.png")
-loadSprite("grass", "/sprites/grass.png")
-loadSprite("ghosty", "/sprites/ghosty.png")
-loadSprite("portal", "/sprites/portal.png")
-loadSound("score", "/sounds/score.mp3")
-loadSound("portal", "/sounds/portal.mp3")
 
 
 const SPEED = 480
@@ -203,18 +193,7 @@ scene("win", ({ score }) => {
 
 })
 
-scene("win", ({ score }) => {
 
-	add([
-		text(`You grabbed ${score} coins!!!`, {
-			width: width(),
-		}),
-		pos(12),
-	])
-
-	onKeyPress(start)
-
-})
 
 
 function start() {
