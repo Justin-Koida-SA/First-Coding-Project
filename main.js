@@ -3,7 +3,7 @@ import "./kaboom.js"
 // add a piece of text at position (120, 80)
 add([
     scale(2),
-    text("hellooo world"),
+    text("hellooo wwagarorld"),
     pos(50, 80),
 ]);
 
