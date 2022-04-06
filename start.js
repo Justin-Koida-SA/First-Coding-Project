@@ -182,6 +182,7 @@ score: 0,
 start()
 
 //test 4
+//test 6
 
 
 
