@@ -13,7 +13,9 @@ loadSprite("stove", "/sprites/blackking.png")
 loadSprite("floor", "/sprites/blackking.png")
 loadSprite("child", "/sprites/blackking.png")
 loadSprite("portal", "/sprites/blackking.png")
-loadSprite("")
+loadSprite("ketchup", "/sprites/blackking.png")
+loadSprite("spear", "/sprites/blackking.png")
+
 
 // Extend our game with multiple scenes
 
