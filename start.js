@@ -116,7 +116,9 @@ origin("bot"),
 
 // Get the player object from tag
 const player = get("player")[0]
+const children = get("children")[0]
 const ket = 0
+const mus = 0
 
 // Movements
 onKeyPress("space", () => {
@@ -137,6 +139,17 @@ onKeyPress("k", () => {
     if(ket > 0){
    ket = ket -1
 }
+})
+
+onKeyPress("m", () => {
+    if(mus > 0){
+   mus = mus - 1
+}
+})
+
+player.onCollide("mustard", (power) =>{
+    destroy(power)
+    mus = mus +1
 })
  
 player.onCollide("ketchup", (power) => {
