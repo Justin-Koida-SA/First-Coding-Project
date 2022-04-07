@@ -1,12 +1,6 @@
 import "./kaboom.js"
 
 
-
-
-
-
-
-
 loadSprite("pretzel", "/sprites/blackking.png")
 loadSprite("salt", "/sprites/blackking.png")
 loadSprite("stove", "/sprites/blackking.png")
@@ -32,9 +26,9 @@ const SPEED = 480
 
 const LEVELS = [
 [
-"            =   =   =   ",
-"@  ^ $$  ^ =  ^^  ^^   >",
-"========================",
+"=            =   =   =   ",
+"=@  ^ $$  ^ =  ^^  ^^   >",
+"=========================",
 ],
 [
 "                   =    ",
@@ -182,7 +176,10 @@ score: score,
 go("win", { score: score, })
 }
 })
-
+//camera follows player
+player.onUpdate(() => {
+   camPos(player.pos)
+})
 // Score counter text
 const scoreLabel = add([
 text(score),
