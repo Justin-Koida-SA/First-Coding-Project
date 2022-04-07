@@ -7,12 +7,13 @@ import "./kaboom.js"
 
 
 
-loadSprite("bean", "/sprites/blackking.png")
-loadSprite("coin", "/sprites/blackking.png")
-loadSprite("spike", "/sprites/blackking.png")
-loadSprite("grass", "/sprites/blackking.png")
-loadSprite("ghosty", "/sprites/blackking.png")
+loadSprite("pretzel", "/sprites/blackking.png")
+loadSprite("salt", "/sprites/blackking.png")
+loadSprite("stove", "/sprites/blackking.png")
+loadSprite("floor", "/sprites/blackking.png")
+loadSprite("child", "/sprites/blackking.png")
 loadSprite("portal", "/sprites/blackking.png")
+loadSprite("")
 
 // Extend our game with multiple scenes
 
@@ -48,7 +49,7 @@ width: 64,
 height: 64,
 pos: vec2(100, 200),
 "@": () => [
-sprite("bean"),
+sprite("pretzel"),
 scale(.3),
 area(),
 body(),
@@ -56,21 +57,21 @@ origin("bot"),
 "player",
 ],
 "=": () => [
-sprite("grass"),
+sprite("floor"),
 scale(.3),
 area(),
 solid(),
 origin("bot"),
 ],
 "$": () => [
-sprite("coin"),
+sprite("salt"),
 scale(.3),
 area(),
 origin("bot"),
 "coin",
 ],
 "^": () => [
-sprite("spike"),
+sprite("stove"),
 scale(.3),
 area(),
 origin("bot"),
@@ -180,10 +181,3 @@ score: 0,
 }
 
 start()
-
-//test 4
-//test 6
-
-
-
-
