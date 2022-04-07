@@ -30,12 +30,14 @@ const SPEED = 480
 
 const LEVELS = [
 [
-"@  ^ $$ >",
-"=========",
+"            =   =   =   ",
+"@  ^ $$  ^ =  ^^  ^^   >",
+"========================",
 ],
 [
-"@   $   >",
-"=   =   =",
+"                   =    ",
+"@   $      =   =       >",
+"=   =   =              =",
 ],
 ]
 
@@ -67,14 +69,14 @@ origin("bot"),
 ],
 "$": () => [
 sprite("salt"),
-scale(.3),
+scale(.1),
 area(),
 origin("bot"),
 "coin",
 ],
 "^": () => [
 sprite("stove"),
-scale(.3),
+scale(.2),
 area(),
 origin("bot"),
 "danger",
