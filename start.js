@@ -15,6 +15,8 @@ loadSprite("child", "/sprites/blackking.png")
 loadSprite("portal", "/sprites/blackking.png")
 loadSprite("ketchup", "/sprites/blackking.png")
 loadSprite("spear", "/sprites/blackking.png")
+loadSprite("mustard", "/sprites/blackking.png")
+loadSprite("children", "/sprites/blackking.png")
 
 
 // Extend our game with multiple scenes
@@ -88,10 +90,33 @@ area(),
 origin("bot"),
 "portal",
 ],
+".": () =>[
+    sprite("ketchup"),
+    scale(.3),
+    area(),
+    origin("bot"),
+    "power",
+ ],
+ ",": () =>[
+    sprite("mustard"),
+    scale(.3),
+    area(),
+    origin("bot"),
+    "power",
+ ],
+ "+": () => [
+    sprite("children"),
+    scale(.3),
+    area(),
+    origin("bot"),
+    "danger",
+    ],
+ 
 })
 
 // Get the player object from tag
 const player = get("player")[0]
+const ket = 0
 
 // Movements
 onKeyPress("space", () => {
@@ -108,6 +133,19 @@ onKeyDown("right", () => {
 player.move(SPEED, 0)
 })
 
+onKeyPress("k", () => {
+    if(ket > 0){
+   ket = ket -1
+}
+})
+ 
+player.onCollide("ketchup", (power) => {
+destory(power)
+ 
+ket = ket + 1
+})
+
+
 player.onCollide("danger", () => {
 player.pos = level.getPos(0, 0)
 // Go to "lose" scene when we hit a "danger"
@@ -120,6 +158,8 @@ destroy(coin)
 score++
 scoreLabel.text = score
 })
+
+
 
 // Fall death
 player.onUpdate(() => {
