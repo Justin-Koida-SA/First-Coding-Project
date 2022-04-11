@@ -11,6 +11,7 @@ loadSprite("ketchup", "/sprites/blackking.png")
 loadSprite("spear", "/sprites/blackking.png")
 loadSprite("mustard", "/sprites/blackking.png")
 loadSprite("children", "/sprites/blackking.png")
+loadSprite("invis-wall", "sprites/blackking.png")
 
 
 // Extend our game with multiple scenes
@@ -27,7 +28,7 @@ const SPEED = 480
 const LEVELS = [
 [
 "=            =   =   =   ",
-"=@  ^ $$  ^ =  ^^  ^^   >",
+"=@  ^ $$  ^ =  |  +    |>",
 "=========================",
 ],
 [
@@ -102,10 +103,17 @@ origin("bot"),
     sprite("children"),
     scale(.3),
     area(),
+    solid(),
     origin("bot"),
     "danger",
     ],
- 
+    "|": () => [
+      sprite("invis-wall"),
+      scale(.3),
+      area(),
+      origin("bot"),
+      "danger",
+      ],
 })
 
 // Get the player object from tag
@@ -153,7 +161,9 @@ score++
 scoreLabel.text = score
 })
 
-
+onCollide('children', 'invis-wall', (s,p)=> {
+   if(CHILD_SPEED == 50)
+})
 
 // Fall death
 player.onUpdate(() => {
