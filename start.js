@@ -1,17 +1,17 @@
 import "./kaboom.js"
 
 
-loadSprite("pretzel", "/sprites/blackking.png")
-loadSprite("salt", "/sprites/blackking.png")
-loadSprite("stove", "/sprites/blackking.png")
-loadSprite("floor", "/sprites/blackking.png")
-loadSprite("child", "/sprites/blackking.png")
-loadSprite("portal", "/sprites/blackking.png")
+loadSprite("pretzel", "/sprites/pretzel.png")
+loadSprite("salt", "/sprites/salt.png")
+loadSprite("stove", "/sprites/stove.jpg")
+loadSprite("floor", "/sprites/floor.png")
+//loadSprite("child", "/sprites/child.png")
+loadSprite("portal", "/sprites/portal.png")
 loadSprite("ketchup", "/sprites/blackking.png")
 loadSprite("spear", "/sprites/blackking.png")
 loadSprite("mustard", "/sprites/blackking.png")
-loadSprite("children", "/sprites/blackking.png")
-loadSprite("invis-wall", "sprites/blackking.png")
+loadSprite("children", "/sprites/child.png")
+loadSprite("invis-wall", "sprites/wall.jpg")
 
 
 // Extend our game with multiple scenes
@@ -51,7 +51,7 @@ height: 64,
 pos: vec2(100, 200),
 "@": () => [
 sprite("pretzel"),
-scale(.3),
+scale(.27),
 area(),
 body(),
 origin("bot"),
@@ -59,7 +59,7 @@ origin("bot"),
 ],
 "=": () => [
 sprite("floor"),
-scale(.3),
+scale(.175),
 area(),
 solid(),
 origin("bot"),
@@ -73,14 +73,14 @@ origin("bot"),
 ],
 "^": () => [
 sprite("stove"),
-scale(.2),
+scale(.035),
 area(),
 origin("bot"),
 "danger",
 ],
 ">": () => [
 sprite("portal"),
-scale(.3),
+scale(.1),
 area(),
 origin("bot"),
 "portal",
