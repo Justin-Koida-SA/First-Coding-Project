@@ -23,7 +23,7 @@ loadSprite("invis-wall", "sprites/blackking.png")
 
 
 const SPEED = 480
-
+const CHILD_SPEED = 50
 
 const LEVELS = [
 [
@@ -161,8 +161,17 @@ score++
 scoreLabel.text = score
 })
 
+action('children', (s)=> {
+   s.move(CHILD_SPEED, 0)
+})
+
 onCollide('children', 'invis-wall', (s,p)=> {
-   if(CHILD_SPEED == 50)
+   if(CHILD_SPEED == 50){
+      s.flipX(false);
+   }else{
+      s.flipX(true);
+   }
+   CHILD_SPEED = CHILD_SPEED * -1
 })
 
 // Fall death
