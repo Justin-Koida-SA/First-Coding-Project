@@ -1,12 +1,6 @@
 import "./kaboom.js"
 
 
-
-
-
-
-
-
 loadSprite("pretzel", "/sprites/blackking.png")
 loadSprite("salt", "/sprites/blackking.png")
 loadSprite("stove", "/sprites/blackking.png")
@@ -17,6 +11,7 @@ loadSprite("ketchup", "/sprites/blackking.png")
 loadSprite("spear", "/sprites/blackking.png")
 loadSprite("mustard", "/sprites/blackking.png")
 loadSprite("children", "/sprites/blackking.png")
+loadSprite("invis-wall", "sprites/blackking.png")
 
 
 // Extend our game with multiple scenes
@@ -28,13 +23,13 @@ loadSprite("children", "/sprites/blackking.png")
 
 
 const SPEED = 480
-
+const CHILD_SPEED = 50
 
 const LEVELS = [
 [
-"            =   =   =   ",
-"@  ^ $$  ^ =  ^^  ^^   >",
-"========================",
+"=            =   =   =   ",
+"=@  ^ $$  ^ =  |  +    |>",
+"=========================",
 ],
 [
 "                   =    ",
@@ -108,10 +103,17 @@ origin("bot"),
     sprite("children"),
     scale(.3),
     area(),
+    solid(),
     origin("bot"),
     "danger",
     ],
- 
+    "|": () => [
+      sprite("invis-wall"),
+      scale(.3),
+      area(),
+      origin("bot"),
+      "danger",
+      ],
 })
 
 // Get the player object from tag
@@ -159,7 +161,18 @@ score++
 scoreLabel.text = score
 })
 
+action('children', (s)=> {
+   s.move(CHILD_SPEED, 0)
+})
 
+onCollide('children', 'invis-wall', (s,p)=> {
+   if(CHILD_SPEED == 50){
+      s.flipX(false);
+   }else{
+      s.flipX(true);
+   }
+   CHILD_SPEED = CHILD_SPEED * -1
+})
 
 // Fall death
 player.onUpdate(() => {
@@ -182,7 +195,10 @@ score: score,
 go("win", { score: score, })
 }
 })
-
+//camera follows player
+player.onUpdate(() => {
+   camPos(player.pos)
+})
 // Score counter text
 const scoreLabel = add([
 text(score),
