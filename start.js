@@ -22,8 +22,18 @@ loadSprite("invis-wall", "sprites/wall.jpg")
 // Load assets
 
 
-const SPEED = 480
+//N means normal -- K means ketchuo --- M means mustard
+const NSPEED = 480
+const MSPEED = 600 
+let SPEED = NSPEED
+
+const KDMG = 2
+const NDMG = 1
+let DMG = NDMG
+
+
 const CHILD_SPEED = 50
+let CURRENT_CHILD_SPEED = CHILD_SPEED
 
 const LEVELS = [
 [
@@ -101,24 +111,24 @@ origin("bot"),
  ],
  "+": () => [
     sprite("children"),
-    scale(.3),
+    scale(.225),
     area(),
     solid(),
     origin("bot"),
-    "danger",
+    "children",
     ],
     "|": () => [
       sprite("invis-wall"),
       scale(.3),
       area(),
       origin("bot"),
-      "danger",
+      'invis-wall'
       ],
 })
 
 // Get the player object from tag
 const player = get("player")[0]
-const ket = 0
+
 
 // Movements
 onKeyPress("space", () => {
@@ -135,16 +145,14 @@ onKeyDown("right", () => {
 player.move(SPEED, 0)
 })
 
-onKeyPress("k", () => {
-    if(ket > 0){
-   ket = ket -1
-}
-})
+// onKeyPress("l", () => {
+//    //fire
+// }
+// })
  
 player.onCollide("ketchup", (power) => {
 destory(power)
- 
-ket = ket + 1
+DMG = KDMG
 })
 
 
@@ -154,6 +162,13 @@ player.pos = level.getPos(0, 0)
 go("lose")
 })
 
+//for children lose scene
+player.onCollide("danger", () => {
+    player.pos = level.getPos(0, 0)
+    // Go to "lose" scene when we hit a "danger"
+    go("lose")
+    })
+
 player.onCollide("coin", (coin) => {
 destroy(coin)
 
@@ -162,16 +177,13 @@ scoreLabel.text = score
 })
 
 action('children', (s)=> {
-   s.move(CHILD_SPEED, 0)
+   s.move(CURRENT_CHILD_SPEED, 0)
 })
 
 onCollide('children', 'invis-wall', (s,p)=> {
-   if(CHILD_SPEED == 50){
-      s.flipX(false);
-   }else{
-      s.flipX(true);
-   }
-   CHILD_SPEED = CHILD_SPEED * -1
+  if(CHILD_SPEED = 50){
+    
+  }
 })
 
 // Fall death
