@@ -39,8 +39,8 @@ const CHILD_SPEED = 250
 const LEVELS = [
 [       
 "                 .                                       =",   
-"=            =   =   =                                   =",
-"=@  ^ $$ +^ =  |  + $   |   + ^^   $       $       |   , =",
+"=             =   =   =                  =               =",
+"=@  |^ $$ +^|= |  + $   |   + ^^   |$  =    $ |    +  |, =",
 "=======================================================  =",
 "                                                         =",
 "                                                         =", 
@@ -80,6 +80,8 @@ scale(.175),
 area(),
 solid(),
 origin("bot"),
+'floor',
+
 ],
 "$": () => [
 sprite("salt"),
@@ -97,7 +99,7 @@ origin("bot"),
 ],
 ">": () => [
 sprite("portal"),
-scale(.1),
+scale(.4),
 area(),
 origin("bot"),
 "portal",
@@ -108,6 +110,7 @@ origin("bot"),
     area(),
     origin("bot"),
     "power",
+    'ketchup',
  ],
  ",": () =>[
     sprite("mustard"),
@@ -115,10 +118,11 @@ origin("bot"),
     area(),
     origin("bot"),
     "power",
+    'mustard'
  ],
  "+": () => [
     sprite("children"),
-    scale(.225),
+    scale(.2),
     area(),
     solid(),
     origin("bot"),
@@ -133,6 +137,7 @@ origin("bot"),
       scale(.3),
       area(),
       origin("bot"),
+      opacity(.1),
       'invis-wall',
       ],
 })
@@ -162,9 +167,14 @@ player.move(SPEED, 0)
 // })
  
 player.onCollide("ketchup", (power) => {
-destory(power)
+destroy(power)
 DMG = KDMG
 })
+
+player.onCollide("mustard", (power) => {
+    destroy(power)
+    SPEED = MSPEED
+    })
 
 
 player.onCollide("danger", () => {
@@ -189,6 +199,8 @@ action('children', (s)=> {
 onCollide("children", 'invis-wall', (s) =>{
     s.speed = s.speed * -1
    })
+
+  
 
 // onCollide('children', 'invis-wall', (s,p)=> {
 
