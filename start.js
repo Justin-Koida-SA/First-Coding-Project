@@ -1,6 +1,7 @@
 import "./kaboom.js"
 
 
+
 loadSprite("pretzel", "/sprites/pretzel.png")
 loadSprite("salt", "/sprites/salt.png")
 loadSprite("stove", "/sprites/stove.jpg")
@@ -32,14 +33,20 @@ const NDMG = 1
 let DMG = NDMG
 
 
-const CHILD_SPEED = 50
-let CURRENT_CHILD_SPEED = CHILD_SPEED
+const CHILD_SPEED = 250
+
 
 const LEVELS = [
-[
-"=            =   =   =   ",
-"=@  ^ $$  ^ =  |  +    |>",
-"=========================",
+[       
+"                 .                                       =",   
+"=            =   =   =                                   =",
+"=@  ^ $$ +^ =  |  + $   |   + ^^   $       $       |   , =",
+"=======================================================  =",
+"                                                         =",
+"                                                         =", 
+"  >  |  +  |                                             =",
+" =========================================================", 
+                                               
 ],
 [
 "                   =    ",
@@ -116,13 +123,17 @@ origin("bot"),
     solid(),
     origin("bot"),
     "children",
+    "danger",
+    {
+        speed:CHILD_SPEED
+    }
     ],
     "|": () => [
       sprite("invis-wall"),
       scale(.3),
       area(),
       origin("bot"),
-      'invis-wall'
+      'invis-wall',
       ],
 })
 
@@ -162,12 +173,7 @@ player.pos = level.getPos(0, 0)
 go("lose")
 })
 
-//for children lose scene
-player.onCollide("danger", () => {
-    player.pos = level.getPos(0, 0)
-    // Go to "lose" scene when we hit a "danger"
-    go("lose")
-    })
+
 
 player.onCollide("coin", (coin) => {
 destroy(coin)
@@ -177,18 +183,33 @@ scoreLabel.text = score
 })
 
 action('children', (s)=> {
-   s.move(CURRENT_CHILD_SPEED, 0)
+   s.move(s.speed, 0)
+   
 })
+onCollide("children", 'invis-wall', (s) =>{
+    s.speed = s.speed * -1
+   })
 
-onCollide('children', 'invis-wall', (s,p)=> {
-  if(CHILD_SPEED = 50){
+// onCollide('children', 'invis-wall', (s,p)=> {
+
+//     if(p.isLeft() || p.isRight()){
+//        s.move(CHILD_SPEED*-1)
+//     }
     
-  }
-})
+    
+    // if(CURRENT_CHILD_SPEED = 50){
+    //    s.flipX(false);
+    //    CURRENT_CHILD_SPEED = CHILD_SPEED * -1
+    // }
+    // else if(CURRENT_CHILD_SPEED = CHILD_SPEED*-1){
+    //    s.flipX(true);
+    //    CURRENT_CHILD_SPEED = CHILD_SPEED
+    // } 
+ //})
 
 // Fall death
 player.onUpdate(() => {
-if (player.pos.y >= 480) {
+if (player.pos.y >= 600) {
 go("lose")
 }
 })
