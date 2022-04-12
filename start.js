@@ -228,18 +228,24 @@ go("lose")
 
 // Enter the next level on portal
 player.onCollide("portal", () => {
+    //take out the if score <5 STATEMENT and else if score >=5 for original
+    if(score < 5){
+        text("no")
+    }
+   else if (score >= 5){
+    if (levelIdx < LEVELS.length - 1) {
+    // If there's a next level, go() to the same scene but load the next level
+    go("game", {
+    levelIdx: levelIdx + 1,
+        score: score,
+})
+    } else {
+    // Otherwise we have reached the end of game, go to "win" scene!
+    go("win", { score: score, })
+    }
+    }
+})
 
-if (levelIdx < LEVELS.length - 1) {
-// If there's a next level, go() to the same scene but load the next level
-go("game", {
-levelIdx: levelIdx + 1,
-score: score,
-})
-} else {
-// Otherwise we have reached the end of game, go to "win" scene!
-go("win", { score: score, })
-}
-})
 //camera follows player
 player.onUpdate(() => {
    camPos(player.pos)
