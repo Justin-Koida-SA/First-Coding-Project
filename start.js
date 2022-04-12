@@ -1,17 +1,18 @@
 import "./kaboom.js"
 
 
-loadSprite("pretzel", "/sprites/blackking.png")
-loadSprite("salt", "/sprites/blackking.png")
-loadSprite("stove", "/sprites/blackking.png")
-loadSprite("floor", "/sprites/blackking.png")
-loadSprite("child", "/sprites/blackking.png")
-loadSprite("portal", "/sprites/blackking.png")
+
+loadSprite("pretzel", "/sprites/pretzel.png")
+loadSprite("salt", "/sprites/salt.png")
+loadSprite("stove", "/sprites/stove.jpg")
+loadSprite("floor", "/sprites/floor.png")
+//loadSprite("child", "/sprites/child.png")
+loadSprite("portal", "/sprites/portal.png")
 loadSprite("ketchup", "/sprites/blackking.png")
 loadSprite("spear", "/sprites/blackking.png")
 loadSprite("mustard", "/sprites/blackking.png")
-loadSprite("children", "/sprites/blackking.png")
-loadSprite("invis-wall", "sprites/blackking.png")
+loadSprite("children", "/sprites/child.png")
+loadSprite("invis-wall", "sprites/wall.jpg")
 
 
 // Extend our game with multiple scenes
@@ -22,14 +23,30 @@ loadSprite("invis-wall", "sprites/blackking.png")
 // Load assets
 
 
-const SPEED = 480
-const CHILD_SPEED = 50
+//N means normal -- K means ketchuo --- M means mustard
+const NSPEED = 480
+const MSPEED = 600 
+let SPEED = NSPEED
+
+const KDMG = 2
+const NDMG = 1
+let DMG = NDMG
+
+
+const CHILD_SPEED = 250
+
 
 const LEVELS = [
-[
-"=            =   =   =   ",
-"=@  ^ $$  ^ =  |  +    |>",
-"=========================",
+[       
+"                 .                                       =",   
+"=             =   =   =                  =               =",
+"=@  |^ $$ +^|= |  + $   |   + ^^   |$  =    $ |    +  |, =",
+"=======================================================  =",
+"                                                         =",
+"                                                         =", 
+"  >  |  +  |                                             =",
+" =========================================================", 
+                                               
 ],
 [
 "                   =    ",
@@ -51,7 +68,7 @@ height: 64,
 pos: vec2(100, 200),
 "@": () => [
 sprite("pretzel"),
-scale(.3),
+scale(.27),
 area(),
 body(),
 origin("bot"),
@@ -59,10 +76,12 @@ origin("bot"),
 ],
 "=": () => [
 sprite("floor"),
-scale(.3),
+scale(.175),
 area(),
 solid(),
 origin("bot"),
+'floor',
+
 ],
 "$": () => [
 sprite("salt"),
@@ -73,14 +92,14 @@ origin("bot"),
 ],
 "^": () => [
 sprite("stove"),
-scale(.2),
+scale(.035),
 area(),
 origin("bot"),
 "danger",
 ],
 ">": () => [
 sprite("portal"),
-scale(.3),
+scale(.4),
 area(),
 origin("bot"),
 "portal",
@@ -91,6 +110,7 @@ origin("bot"),
     area(),
     origin("bot"),
     "power",
+    'ketchup',
  ],
  ",": () =>[
     sprite("mustard"),
@@ -98,27 +118,33 @@ origin("bot"),
     area(),
     origin("bot"),
     "power",
+    'mustard'
  ],
  "+": () => [
     sprite("children"),
-    scale(.3),
+    scale(.2),
     area(),
     solid(),
     origin("bot"),
+    "children",
     "danger",
+    {
+        speed:CHILD_SPEED
+    }
     ],
     "|": () => [
       sprite("invis-wall"),
       scale(.3),
       area(),
       origin("bot"),
-      "danger",
+      opacity(.1),
+      'invis-wall',
       ],
 })
 
 // Get the player object from tag
 const player = get("player")[0]
-const ket = 0
+
 
 // Movements
 onKeyPress("space", () => {
@@ -135,17 +161,20 @@ onKeyDown("right", () => {
 player.move(SPEED, 0)
 })
 
-onKeyPress("k", () => {
-    if(ket > 0){
-   ket = ket -1
-}
-})
+// onKeyPress("l", () => {
+//    //fire
+// }
+// })
  
 player.onCollide("ketchup", (power) => {
-destory(power)
- 
-ket = ket + 1
+destroy(power)
+DMG = KDMG
 })
+
+player.onCollide("mustard", (power) => {
+    destroy(power)
+    SPEED = MSPEED
+    })
 
 
 player.onCollide("danger", () => {
@@ -153,6 +182,8 @@ player.pos = level.getPos(0, 0)
 // Go to "lose" scene when we hit a "danger"
 go("lose")
 })
+
+
 
 player.onCollide("coin", (coin) => {
 destroy(coin)
@@ -162,39 +193,59 @@ scoreLabel.text = score
 })
 
 action('children', (s)=> {
-   s.move(CHILD_SPEED, 0)
+   s.move(s.speed, 0)
+   
 })
+onCollide("children", 'invis-wall', (s) =>{
+    s.speed = s.speed * -1
+   })
 
-onCollide('children', 'invis-wall', (s,p)=> {
-   if(CHILD_SPEED == 50){
-      s.flipX(false);
-   }else{
-      s.flipX(true);
-   }
-   CHILD_SPEED = CHILD_SPEED * -1
-})
+  
+
+// onCollide('children', 'invis-wall', (s,p)=> {
+
+//     if(p.isLeft() || p.isRight()){
+//        s.move(CHILD_SPEED*-1)
+//     }
+    
+    
+    // if(CURRENT_CHILD_SPEED = 50){
+    //    s.flipX(false);
+    //    CURRENT_CHILD_SPEED = CHILD_SPEED * -1
+    // }
+    // else if(CURRENT_CHILD_SPEED = CHILD_SPEED*-1){
+    //    s.flipX(true);
+    //    CURRENT_CHILD_SPEED = CHILD_SPEED
+    // } 
+ //})
 
 // Fall death
 player.onUpdate(() => {
-if (player.pos.y >= 480) {
+if (player.pos.y >= 600) {
 go("lose")
 }
 })
 
 // Enter the next level on portal
 player.onCollide("portal", () => {
+    //take out the if score <5 STATEMENT and else if score >=5 for original
+    if(score < 5){
+        text("no")
+    }
+   else if (score >= 5){
+    if (levelIdx < LEVELS.length - 1) {
+    // If there's a next level, go() to the same scene but load the next level
+    go("game", {
+    levelIdx: levelIdx + 1,
+        score: score,
+})
+    } else {
+    // Otherwise we have reached the end of game, go to "win" scene!
+    go("win", { score: score, })
+    }
+    }
+})
 
-if (levelIdx < LEVELS.length - 1) {
-// If there's a next level, go() to the same scene but load the next level
-go("game", {
-levelIdx: levelIdx + 1,
-score: score,
-})
-} else {
-// Otherwise we have reached the end of game, go to "win" scene!
-go("win", { score: score, })
-}
-})
 //camera follows player
 player.onUpdate(() => {
    camPos(player.pos)
