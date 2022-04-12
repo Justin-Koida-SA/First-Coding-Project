@@ -8,9 +8,9 @@ loadSprite("stove", "/sprites/stove.jpg")
 loadSprite("floor", "/sprites/floor.png")
 //loadSprite("child", "/sprites/child.png")
 loadSprite("portal", "/sprites/portal.png")
-loadSprite("ketchup", "/sprites/blackking.png")
+loadSprite("ketchup", "/sprites/ketchup.png")
 loadSprite("spear", "/sprites/blackking.png")
-loadSprite("mustard", "/sprites/blackking.png")
+loadSprite("mustard", "/sprites/mustard.png")
 loadSprite("children", "/sprites/child.png")
 loadSprite("invis-wall", "sprites/wall.jpg")
 
@@ -41,17 +41,17 @@ const LEVELS = [
 "                 .                                       =",   
 "=             =   =   =                  =               =",
 "=@  |^ $$ +^|= |  + $   |   + ^^   |$  =    $ |    +  |, =",
-"=======================================================  =",
-"                                                         =",
-"                                                         =", 
-"  >  |  +  |                                             =",
+"======================================================   =",
+"                                                        ==",
+"                                                       = =", 
+"  >  |  +  |    +    | ^^^ +     |    +  |  +  +     |=  =",
 " =========================================================", 
                                                
 ],
 [
-"                   =    ",
-"@   $      =   =       >",
-"=   =   =              =",
+"=                   =    ",
+"=@   $      =   =       >",
+"==   =   =              =",
 ],
 ]
 
@@ -114,7 +114,7 @@ origin("bot"),
  ],
  ",": () =>[
     sprite("mustard"),
-    scale(.3),
+    scale(.1),
     area(),
     origin("bot"),
     "power",
@@ -124,7 +124,7 @@ origin("bot"),
     sprite("children"),
     scale(.2),
     area(),
-    solid(),
+   // solid(),
     origin("bot"),
     "children",
     "danger",
@@ -235,11 +235,12 @@ player.onCollide("portal", () => {
    else if (score >= 5){
     if (levelIdx < LEVELS.length - 1) {
     // If there's a next level, go() to the same scene but load the next level
+    SPEED = NSPEED,
+    JUMP = NJUMP,
     go("game", {
     levelIdx: levelIdx + 1,
         score: score,
         score: 0,
-        SPEED: NSPEED
 })
     } else {
     // Otherwise we have reached the end of game, go to "win" scene!
@@ -287,6 +288,8 @@ onKeyPress(start)
 
 function start() {
 // Start with the "game" scene, with initial parameters
+SPEED = NSPEED,
+JUMP = NJUMP,
 go("game", {
 levelIdx: 0,
 score: 0,
