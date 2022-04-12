@@ -28,9 +28,9 @@ const NSPEED = 480
 const MSPEED = 600 
 let SPEED = NSPEED
 
-const KDMG = 2
-const NDMG = 1
-let DMG = NDMG
+const KJUMP = 800
+const NJUMP = 650
+let JUMP = NJUMP
 
 
 const CHILD_SPEED = 250
@@ -149,7 +149,7 @@ const player = get("player")[0]
 // Movements
 onKeyPress("space", () => {
 if (player.isGrounded()) {
-player.jump()
+player.jump(JUMP)
 }
 })
 
@@ -168,7 +168,7 @@ player.move(SPEED, 0)
  
 player.onCollide("ketchup", (power) => {
 destroy(power)
-DMG = KDMG
+JUMP = KJUMP
 })
 
 player.onCollide("mustard", (power) => {
@@ -238,6 +238,8 @@ player.onCollide("portal", () => {
     go("game", {
     levelIdx: levelIdx + 1,
         score: score,
+        score: 0,
+        SPEED: NSPEED
 })
     } else {
     // Otherwise we have reached the end of game, go to "win" scene!
