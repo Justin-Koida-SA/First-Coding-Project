@@ -45,13 +45,20 @@ const LEVELS = [
 "                                                        ==",
 "                                                       = =", 
 "  >  |  +  |    +    | ^^^ +     |    +  |  +  +     |=  =",
-" =========================================================", 
+"==========================================================", 
                                                
 ],
 [
-"=                   =    ",
-"=@   $      =   =       >",
-"==   =   =              =",
+"=      $                       .                          ",
+"= ,    =      =       =        =                          ",
+"= =                                                    >  ",
+"=    =                                               ===  ",
+"=        =                                        $       ",
+"=             =     =              =              =       ",
+"=                       =                                 ",
+"=           $       =              $            =         ",
+"=@   $      =   =                  =                      ",
+"==   =   =                                  ===           ",
 ],
 ]
 
@@ -66,6 +73,7 @@ const level = addLevel(LEVELS[levelIdx || 0], {
 width: 64,
 height: 64,
 pos: vec2(100, 200),
+
 "@": () => [
 sprite("pretzel"),
 scale(.27),
@@ -221,7 +229,7 @@ onCollide("children", 'invis-wall', (s) =>{
 
 // Fall death
 player.onUpdate(() => {
-if (player.pos.y >= 600) {
+if (player.pos.y >= 1000) {
 go("lose")
 }
 })
@@ -256,10 +264,12 @@ player.onUpdate(() => {
 // Score counter text
 const scoreLabel = add([
 text(score),
-pos(12)
+pos(player.pos.x, 200)
 ])
 
 })
+
+
 
 scene("lose", () => {
 
