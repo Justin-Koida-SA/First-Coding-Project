@@ -28,9 +28,14 @@ const NSPEED = 480
 const MSPEED = 600 
 let SPEED = NSPEED
 
+const SPEEDC = 1000
+
 const KJUMP = 800
 const NJUMP = 650
 let JUMP = NJUMP
+
+let start1 = "true"
+let INVINSIBLE = "false"
 
 
 const CHILD_SPEED = 250
@@ -66,7 +71,7 @@ const LEVELS = [
 // Scenes can accept argument from go()
 scene("game", ({ levelIdx, score }) => {
 
-gravity(2400)
+//gravity(2400)
 
 // Use the level passed, or first level
 const level = addLevel(LEVELS[levelIdx || 0], {
@@ -154,19 +159,103 @@ origin("bot"),
 const player = get("player")[0]
 
 
-// Movements
-onKeyPress("space", () => {
-if (player.isGrounded()) {
-player.jump(JUMP)
+onKeyPress("r", ()=> {
+    JUMP = NJUMP
+    SPEED = NSPEED
+    go("game", {
+    levelIdx: levelIdx + 1,
+        score: 0,
+    })
+})
+
+var leftCancel = () => {};
+var rightCancel = () => {};
+var spaceCancel = () => {};
+var upCancel = () => {};
+var downCancel = () => {};
+
+
+
+// Initial Set up idk how to get this to work without it
+if (start1 == "true"){
+gravity(2400)
+    INVINSIBLE = "false";
+    leftCancel();
+    rightCancel();
+    spaceCancel();
+    upCancel();
+    downCancel();
+
+    spaceCancel = onKeyPress("space", () => {
+    if (player.isGrounded()) {
+        player.jump(JUMP)
+    }
+    })
+
+    leftCancel = onKeyDown("left", () => {
+        player.move(-SPEED, 0)
+    })
+
+    rightCancel = onKeyDown("right", () => {
+        player.move(SPEED, 0)
+    })
+
+    
 }
+
+// Movements
+
+
+onKeyPress("s", () =>{
+    gravity(2400)
+    INVINSIBLE = "false"
+    leftCancel();
+    rightCancel();
+    spaceCancel();
+    upCancel();
+    downCancel();
+
+    spaceCancel = onKeyPress("space", () => {
+    if (player.isGrounded()) {
+        player.jump(JUMP)
+    }
+    })
+
+    leftCancel = onKeyDown("left", () => {
+        player.move(-SPEED, 0)
+    })
+
+    rightCancel = onKeyDown("right", () => {
+        player.move(SPEED, 0)
+    })
 })
 
-onKeyDown("left", () => {
-player.move(-SPEED, 0)
-})
+//creative
+onKeyPress("c", () =>{
+    gravity(0)  
+    INVINSIBLE = "true"
+    leftCancel();
+    rightCancel();
+    spaceCancel();
+    upCancel();
+    downCancel();
+    leftCancel = onKeyDown("left", () => {
+        player.move(-SPEEDC, 0)
+    })
+    
+   rightCancel = onKeyDown("right", () => {
+        player.move(SPEEDC, 0)
+    })
 
-onKeyDown("right", () => {
-player.move(SPEED, 0)
+    downCancel = onKeyDown("down", () => {
+        player.move(0, SPEEDC)
+        })
+
+    upCancel = onKeyDown("up", () => {
+        player.move(0, -SPEEDC)
+        })
+
+
 })
 
 // onKeyPress("l", () => {
@@ -185,11 +274,15 @@ player.onCollide("mustard", (power) => {
     })
 
 
-player.onCollide("danger", () => {
-player.pos = level.getPos(0, 0)
+
+    player.onCollide("danger", () => {
+    if(INVINSIBLE == "false"){
+        player.pos = level.getPos(0, 0)
 // Go to "lose" scene when we hit a "danger"
-go("lose")
+        go("lose")
+    }
 })
+
 
 
 
