@@ -171,6 +171,9 @@ onKeyPress("r", ()=> {
 var leftCancel = () => {};
 var rightCancel = () => {};
 var spaceCancel = () => {};
+var upCancel = () => {};
+var downCancel = () => {};
+
 
 
 // Initial Set up idk how to get this to work without it
@@ -180,6 +183,8 @@ gravity(2400)
     leftCancel();
     rightCancel();
     spaceCancel();
+    upCancel();
+    downCancel();
 
     spaceCancel = onKeyPress("space", () => {
     if (player.isGrounded()) {
@@ -194,6 +199,8 @@ gravity(2400)
     rightCancel = onKeyDown("right", () => {
         player.move(SPEED, 0)
     })
+
+    
 }
 
 // Movements
@@ -205,6 +212,8 @@ onKeyPress("s", () =>{
     leftCancel();
     rightCancel();
     spaceCancel();
+    upCancel();
+    downCancel();
 
     spaceCancel = onKeyPress("space", () => {
     if (player.isGrounded()) {
@@ -228,6 +237,8 @@ onKeyPress("c", () =>{
     leftCancel();
     rightCancel();
     spaceCancel();
+    upCancel();
+    downCancel();
     leftCancel = onKeyDown("left", () => {
         player.move(-SPEEDC, 0)
     })
@@ -236,11 +247,11 @@ onKeyPress("c", () =>{
         player.move(SPEEDC, 0)
     })
 
-    onKeyDown("down", () => {
+    downCancel = onKeyDown("down", () => {
         player.move(0, SPEEDC)
         })
 
-    onKeyDown("up", () => {
+    upCancel = onKeyDown("up", () => {
         player.move(0, -SPEEDC)
         })
 
