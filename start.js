@@ -15,6 +15,7 @@ loadSprite("children", "/sprites/child.png")
 loadSprite("invis-wall", "sprites/wall.jpg")
 
 
+
 // Extend our game with multiple scenes
 
 // Start game
