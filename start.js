@@ -14,6 +14,8 @@ loadSprite("mustard", "/sprites/mustard.png")
 loadSprite("children", "/sprites/child.png")
 loadSprite("invis-wall", "sprites/wall.jpg")
 
+loadSprite("bakery", "/sprites/bakery.jpg")
+
 
 
 // Extend our game with multiple scenes
@@ -71,6 +73,17 @@ const LEVELS = [
 // Define a scene called "game". The callback will be run when we go() to the scene
 // Scenes can accept argument from go()
 scene("game", ({ levelIdx, score }) => {
+    var background = () => {
+    add([
+    
+        scale(1.9),  
+        sprite("bakery"),
+        pos(0, 0),
+        //origin("topleft"),
+        area(),    
+      ])
+    }
+    background()
 
 //gravity(2400)
 
@@ -79,6 +92,7 @@ const level = addLevel(LEVELS[levelIdx || 0], {
 width: 64,
 height: 64,
 pos: vec2(100, 200),
+
 
 "@": () => [
 sprite("pretzel"),
@@ -155,6 +169,8 @@ origin("bot"),
       'invis-wall',
       ],
 })
+
+
 
 // Get the player object from tag
 const player = get("player")[0]
