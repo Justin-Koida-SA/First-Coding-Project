@@ -45,6 +45,14 @@ const CHILD_SPEED = 250
 
 
 const LEVELS = [
+[
+"=                    ",
+"=@             $$$$$   ^    +            > ",
+"=====================",
+"                     ",
+"                     ",
+"                     ",
+],    
 [       
 "                 .                                       =",   
 "=             =   =   =                  =               =",
@@ -87,6 +95,17 @@ scene("game", ({ levelIdx, score }) => {
     background(1000, -70)
     background(2500, -70)
     background(4000, -70)
+    if (LEVELS[0]){
+        add([
+            pos(0,0),
+            text("Ah yes you have awoken. My friend, you have been reborn as a sentient pretzel. The world is against you, trying to make you dissapear. You must survive!"),
+        ])
+
+        add([
+            pos(),
+            
+        ])
+    }
 
 //gravity(2400)
 
