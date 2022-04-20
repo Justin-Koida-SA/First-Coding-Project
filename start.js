@@ -73,17 +73,20 @@ const LEVELS = [
 // Define a scene called "game". The callback will be run when we go() to the scene
 // Scenes can accept argument from go()
 scene("game", ({ levelIdx, score }) => {
-    var background = () => {
+    var background = (x,y) => {
     add([
     
         scale(1.9),  
         sprite("bakery"),
-        pos(0, 0),
+        pos(x, y),
         //origin("topleft"),
         area(),    
       ])
     }
-    background()
+    background(-500,-70)
+    background(1000, -70)
+    background(2500, -70)
+    background(4000, -70)
 
 //gravity(2400)
 
