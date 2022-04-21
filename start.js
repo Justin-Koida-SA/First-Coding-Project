@@ -43,15 +43,15 @@ let INVINSIBLE = "false"
 
 const CHILD_SPEED = 250
 
+var death = ""
+
 
 const LEVELS = [
 [
-"=                    ",
-"=@             $$$$$   ^    +            > ",
-"=====================",
-"                     ",
-"                     ",
-"                     ",
+"=                                                   =",
+"=@         ^     =|+ |  $$$$$     ,       .       > =",
+"=====================================================",
+
 ],    
 [       
 "                 .                                       =",   
@@ -95,17 +95,82 @@ scene("game", ({ levelIdx, score }) => {
     background(1000, -70)
     background(2500, -70)
     background(4000, -70)
-    if (LEVELS[0]){
-        add([
+
+    var tutorial = ()=>{}
+    if (levelIdx == 0){
+       add([
             pos(0,0),
-            text("Ah yes you have awoken. My friend, you have been reborn as a sentient pretzel. The world is against you, trying to make you dissapear. You must survive!"),
+    
+            text("Ah yes you have awoken. My friend, you have been reborn as a sentient pretzel. Dangerous things are trying to kill you. You must save all your salt friends and escape the bakery.",{
+                width: 600,
+            }),
         ])
 
         add([
-            pos(),
-            
+            pos(250,75),
+            text("TUTORIAL")
         ])
-    }
+
+        add([
+            pos(200,100),
+            text("press the right arrow key to move right.")
+        ])
+
+        add([
+            pos(200,125),
+            text("press the left arrow key to move left.")
+        ])
+
+
+        add([
+            pos(200,150),
+            text("Press the space key in order to jump")
+        ])
+
+        add([
+            pos(600,100),
+            text("This is a furnace. Make sure not to touch it or you will burn to death! Jump over the furnace in order to dodge it",{
+                width: 400,
+            })
+        ])
+
+        add([
+            pos(1100,100),
+            text("AAAHH, its a child! Did you know 96% of pretzel fatalities are due to small children. Dodge the hungry evil beasts in order to live.",{
+                width: 400
+            })
+        ])
+
+        add([
+            pos(1600,100),
+            text("These are your salt friends. In order to leave the bakery you must collect all the salt. Make sure to not leave anyone behind!",{
+                width: 400,
+            })
+        ])
+
+        add([
+            pos(2100,100),
+            text("This is the mustard powerup. Collect it in order to gain a boost in speed.",{
+                width: 400,
+            })
+        ])
+
+        add([
+            pos(2600,100),
+            text("This is the ketchup powerup. Collect it in order to boost your jump height.",{
+                width: 400,
+            })
+        ])
+
+        add([
+            pos(3100,100),
+            text("Touch the portal to escape the bakery. Remeber, you need to collect all your salt friends!",{
+                width: 400,
+            })
+        ])
+        }
+    
+
 
 //gravity(2400)
 
@@ -146,6 +211,7 @@ scale(.035),
 area(),
 origin("bot"),
 "danger",
+"stove",
 ],
 ">": () => [
 sprite("portal"),
@@ -314,11 +380,19 @@ player.onCollide("mustard", (power) => {
 
 
 
-    player.onCollide("danger", () => {
+    player.onCollide("children", () => {
     if(INVINSIBLE == "false"){
         player.pos = level.getPos(0, 0)
-// Go to "lose" scene when we hit a "danger"
         go("lose")
+        death = "You have been gobbled up by a child"
+    }
+})
+
+player.onCollide("stove", () => {
+    if(INVINSIBLE == "false"){
+        player.pos = level.getPos(0, 0)
+        go("lose")
+        death = "You have burned in the inferno humans call stove"
     }
 })
 
@@ -403,15 +477,21 @@ pos(player.pos.x, 200)
 
 
 
+
 scene("lose", () => {
 
-add([
-text("You Lose"),
-pos(12),
-])
 
+
+add([
+text(death + ". Press 'space' to respawn",{
+    size: 50,
+    font: "sink",
+    width: 1000,
+}),
+pos(200, 200),
+])
 // Press any key to go back
-onKeyPress(start)
+onKeyPress("space", respawn)
 
 })
 
@@ -437,5 +517,15 @@ levelIdx: 0,
 score: 0,
 })
 }
+
+function respawn() {
+    // Start with the "game" scene, with initial parameters
+    SPEED = NSPEED,
+    JUMP = NJUMP,
+    go("game", {
+    levelIdx: 0,
+    score: 0,
+    })
+    }
 
 start()
