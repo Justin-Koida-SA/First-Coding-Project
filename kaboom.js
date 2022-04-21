@@ -7,7 +7,7 @@ export const k = kaboom({
     height: 650,
     font: "sinko",
     canvas: document.querySelector("#mycanvas"),
-    //background: [ 0, 0, 255, ],
+    background: [ 0, 0, 25, ],
     //background:[sprite("bakery"),],
     global: true
 }); 
