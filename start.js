@@ -408,7 +408,7 @@ score++
 scoreLabel.text = score
 })
 
-action('children', (s)=> {
+onUpdate('children', (s)=> {
    s.move(s.speed, 0)
    
 })
@@ -416,28 +416,9 @@ onCollide("children", 'invis-wall', (s) =>{
     s.speed = s.speed * -1
    })
 
-  
-
-// onCollide('children', 'invis-wall', (s,p)=> {
-
-//     if(p.isLeft() || p.isRight()){
-//        s.move(CHILD_SPEED*-1)
-//     }
-    
-    
-    // if(CURRENT_CHILD_SPEED = 50){
-    //    s.flipX(false);
-    //    CURRENT_CHILD_SPEED = CHILD_SPEED * -1
-    // }
-    // else if(CURRENT_CHILD_SPEED = CHILD_SPEED*-1){
-    //    s.flipX(true);
-    //    CURRENT_CHILD_SPEED = CHILD_SPEED
-    // } 
- //})
-
-// Fall death
 player.onUpdate(() => {
 if (player.pos.y >= 1000) {
+death = "UH OH, You have fallen from a high place lmao.."
 go("lose")
 }
 })
@@ -446,7 +427,8 @@ go("lose")
 player.onCollide("portal", () => {
     //take out the if score <5 STATEMENT and else if score >=5 for original
     if(score < 5){
-        text("no")
+        death = "You left a salt friend behind, you died from EMOTIONAL DAMAGE..."
+        go("lose")
     }
    else if (score >= 5){
     if (levelIdx < LEVELS.length - 1) {
