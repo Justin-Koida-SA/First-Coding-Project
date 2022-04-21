@@ -44,6 +44,7 @@ let INVINSIBLE = "false"
 const CHILD_SPEED = 250
 
 var death = ""
+var checkpoint = 0
 
 
 const LEVELS = [
@@ -267,6 +268,7 @@ const player = get("player")[0]
 onKeyPress("r", ()=> {
     JUMP = NJUMP
     SPEED = NSPEED
+    checkpoint = checkpoint + 1
     go("game", {
     levelIdx: levelIdx + 1,
         score: 0,
@@ -451,6 +453,7 @@ player.onCollide("portal", () => {
     // If there's a next level, go() to the same scene but load the next level
     SPEED = NSPEED,
     JUMP = NJUMP,
+    checkpoint = checkpoint + 1,
     go("game", {
     levelIdx: levelIdx + 1,
         score: score,
@@ -523,7 +526,7 @@ function respawn() {
     SPEED = NSPEED,
     JUMP = NJUMP,
     go("game", {
-    levelIdx: 0,
+    levelIdx: checkpoint,
     score: 0,
     })
     }
