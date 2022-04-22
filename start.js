@@ -31,7 +31,7 @@ const NSPEED = 480
 const MSPEED = 600 
 let SPEED = NSPEED
 
-const SPEEDC = 1000
+const SPEEDC = 1200
 
 const KJUMP = 800
 const NJUMP = 650
@@ -53,7 +53,7 @@ const LEVELS = [
 "=@         ^     =|+ |  $$$$$     ,       .       > =",
 "=====================================================",
 
-],    
+],  
 [       
 "                 .                                       =",   
 "=             =   =   =                  =               =",
@@ -62,21 +62,46 @@ const LEVELS = [
 "                                                        ==",
 "                                                       = =", 
 "  >  |  +  |    +    | ^^^ +     |    +  |  +  +     |=  =",
-"==========================================================", 
-                                               
+"==========================================================",                                               
 ],
 [
-"=      $                       .                          ",
-"= ,    =      =       =        =                          ",
-"= =                                                    >  ",
-"=    =                                               ===  ",
-"=        =                                        $       ",
+    "=             $=           =                             =",
+    "=@ |+  | +  | =.  ^^^ $ ^   |     + + + |   ^$^          =",
+    "================================================   ==    =",
+    "   =               =                            =  =    ==",
+    "  >=                                                   = =",
+    "     ^^|$ +  |  +  + ^^ $^^  +  ^ +   |   +  |,       =  =",
+    "=================================================  ===   =",
+    
+], 
+[
+"=      $                                                 ",
+"= ,    =      =      =      .                            ",
+"= =                         =                         >  ",
+"=    =                                              ===  ",
+"=       ==                                 =      $       ",
 "=             =     =              =              =       ",
 "=                       =                                 ",
 "=           $       =              $            =         ",
 "=@   $      =   =                  =                      ",
-"==   =   =                                  ===           ",
+"==   =   =                                  ====          ",
 ],
+[   
+    "        ^ ^ ^ $===| +++  ^    +  +    +   |  ^          ",
+    "      =========   =============================         ",
+    " =                                                      ",
+    "   =| +  |^ $    ^  + |    $ ^      ^                   ",
+    "========================   =====   ===$       =         ",
+    "=                                      =         =     =",
+    "=                                =       =    =        =",
+    "=                            .             =      =    =",
+    "=                          ^^=^^ ^^^ ^^     =     =    =",
+    "=          =     =     ==============        =    =    =",
+    "=  $  =                                       =   =    =",
+    "=@ =    |    ^+   ^ |^^   ^^  ^^  |  +   +  |   ,= = > =",
+    "========================================================",
+    
+], 
 ]
 
 // Define a scene called "game". The callback will be run when we go() to the scene
@@ -109,7 +134,7 @@ scene("game", ({ levelIdx, score }) => {
 
         add([
             pos(-200,100),
-            text("GOD MODE! Press 'c' to go into god mode. In god mode you can fly, move faster, be invincible, explore the level, and switch between different levels. Press 'r' to move onto the next level and 't' to go back a level. If you would like to swtich back into normal mode, press 's'.",{
+            text("GOD MODE! Press 'c' to go into god mode. In god mode you can fly, move faster, be invincible, explore the level, and switch between different levels. The keys are up, left, right, and down arrows which makes you move resectivly. Press 'r' to move onto the next level and 't' to go back a level. If you would like to swtich back into normal mode, press 's'.",{
                 width: 275,
             })
         ])
@@ -180,7 +205,7 @@ scene("game", ({ levelIdx, score }) => {
     
 
 
-//gravity(2400)
+
 
 // Use the level passed, or first level
 const level = addLevel(LEVELS[levelIdx || 0], {
@@ -191,7 +216,7 @@ pos: vec2(100, 200),
 
 "@": () => [
 sprite("pretzel"),
-scale(.27),
+scale(.26),
 area(),
 body(),
 origin("bot"),
@@ -383,13 +408,10 @@ onKeyPress("c", () =>{
         player.move(0, -SPEEDC)
         })
 
+    player.move(0,-100)
 
 })
 
-// onKeyPress("l", () => {
-//    //fire
-// }
-// })
  
 player.onCollide("ketchup", (power) => {
 destroy(power)
@@ -438,7 +460,7 @@ onCollide("children", 'invis-wall', (s) =>{
    })
 
 player.onUpdate(() => {
-if (player.pos.y >= 1000) {
+if (player.pos.y >= 2000) {
 death = "You fell. Didn't even die to a mob. This right here is emotional damage"
 go("lose")
 }
