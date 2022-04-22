@@ -321,6 +321,14 @@ onKeyPress("t", ()=> {
     }
 })
 
+onKeyPress("i", ()=> {
+INVINSIBLE = "true"
+})
+
+onKeyPress("l", ()=> {
+    INVINSIBLE = "false"
+    })
+
 var leftCancel = () => {};
 var rightCancel = () => {};
 var spaceCancel = () => {};
@@ -495,11 +503,13 @@ player.onCollide("portal", () => {
 player.onUpdate(() => {
    camPos(player.pos)
 })
-// Score counter text
+
 const scoreLabel = add([
-text(score),
-pos(player.pos.x, 200)
-])
+    text(score),
+    pos(player.pos.x, 200)
+    ])
+// Score counter text
+
 
 })
 
