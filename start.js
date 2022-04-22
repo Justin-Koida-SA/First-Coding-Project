@@ -97,7 +97,7 @@ scene("game", ({ levelIdx, score }) => {
     background(2500, -70)
     background(4000, -70)
 
-    var tutorial = ()=>{}
+
     if (levelIdx == 0){
        add([
             pos(0,0),
@@ -105,6 +105,13 @@ scene("game", ({ levelIdx, score }) => {
             text("Ah yes you have awoken. My friend, you have been reborn as a sentient pretzel. Dangerous things are trying to kill you. You must save all your salt friends and escape the bakery.",{
                 width: 600,
             }),
+        ])
+
+        add([
+            pos(-200,100),
+            text("GOD MODE! Press 'c' to go into god mode. In god mode you can fly, move faster, be invincible, explore the level, and switch between different levels. Press 'r' to move onto the next level and 't' to go back a level. If you would like to swtich back into normal mode, press 's'.",{
+                width: 275,
+            })
         ])
 
         add([
@@ -266,13 +273,27 @@ const player = get("player")[0]
 
 
 onKeyPress("r", ()=> {
-    JUMP = NJUMP
-    SPEED = NSPEED
-    checkpoint = checkpoint + 1
-    go("game", {
-    levelIdx: levelIdx + 1,
-        score: 0,
-    })
+    if(INVINSIBLE == "true"){
+        JUMP = NJUMP
+        SPEED = NSPEED
+        checkpoint = checkpoint + 1
+            go("game", {
+        levelIdx: levelIdx + 1,
+            score: 0,
+        })
+    }
+})
+
+onKeyPress("t", ()=> {
+    if(INVINSIBLE == "true"){
+        JUMP = NJUMP
+        SPEED = NSPEED
+        checkpoint = checkpoint - 1
+            go("game", {
+        levelIdx: levelIdx - 1,
+            score: 0,
+        })
+    }
 })
 
 var leftCancel = () => {};
@@ -418,7 +439,7 @@ onCollide("children", 'invis-wall', (s) =>{
 
 player.onUpdate(() => {
 if (player.pos.y >= 1000) {
-death = "UH OH, You have fallen from a high place lmao.."
+death = "You fell. Didn't even die to a mob. This right here is emotional damage"
 go("lose")
 }
 })
@@ -483,7 +504,8 @@ onKeyPress("space", respawn)
 scene("win", ({ score }) => {
 
 add([
-text(`You grabbed ${score} coins!!!`, {
+//text(`You grabbed ${score} coins!!!`, {
+text(`Congrats! You have sucessfully escaped the bakery.`, {
 width: width(),
 }),
 pos(12),
