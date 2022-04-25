@@ -4,7 +4,7 @@ import "./kaboom.js"
 
 loadSprite("pretzel", "/sprites/pretzel.png")
 loadSprite("salt", "/sprites/salt.png")
-loadSprite("stove", "/sprites/stove.jpg")
+loadSprite("stove", "/sprites/stove.png")
 loadSprite("floor", "/sprites/floor.png")
 //loadSprite("child", "/sprites/child.png")
 loadSprite("portal", "/sprites/portal.png")
@@ -240,7 +240,7 @@ origin("bot"),
 ],
 "^": () => [
 sprite("stove"),
-scale(.035),
+scale(.35),
 area(),
 origin("bot"),
 "danger",
