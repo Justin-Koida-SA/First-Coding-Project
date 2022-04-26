@@ -4,7 +4,7 @@ import "./kaboom.js"
 
 loadSprite("pretzel", "/sprites/pretzel.png")
 loadSprite("salt", "/sprites/salt.png")
-loadSprite("stove", "/sprites/stove.png")
+loadSprite("stove", "/sprites/stove1.png")
 loadSprite("floor", "/sprites/floor.png")
 //loadSprite("child", "/sprites/child.png")
 loadSprite("portal", "/sprites/portal.png")
@@ -216,7 +216,7 @@ pos: vec2(100, 200),
 
 "@": () => [
 sprite("pretzel"),
-scale(.26),
+scale(.2),
 area(),
 body(),
 origin("bot"),
@@ -233,14 +233,14 @@ origin("bot"),
 ],
 "$": () => [
 sprite("salt"),
-scale(.1),
+scale(.175),
 area(),
 origin("bot"),
 "coin",
 ],
 "^": () => [
 sprite("stove"),
-scale(.35),
+scale(.15),
 area(),
 origin("bot"),
 "danger",
@@ -255,7 +255,7 @@ origin("bot"),
 ],
 ".": () =>[
     sprite("ketchup"),
-    scale(.3),
+    scale(.45),
     area(),
     origin("bot"),
     "power",
@@ -263,7 +263,7 @@ origin("bot"),
  ],
  ",": () =>[
     sprite("mustard"),
-    scale(.1),
+    scale(.45),
     area(),
     origin("bot"),
     "power",
@@ -271,7 +271,7 @@ origin("bot"),
  ],
  "+": () => [
     sprite("children"),
-    scale(.2),
+    scale(.15),
     area(),
    // solid(),
     origin("bot"),
