@@ -2,7 +2,7 @@ import "./kaboom.js"
 
 
 
-loadSprite("pretzel", "/sprites/pretzel.png")
+//loadSprite("pretzel", "/sprites/pretzel.png")
 loadSprite("salt", "/sprites/salt.png")
 loadSprite("stove", "/sprites/stove1.png")
 loadSprite("floor", "/sprites/floor.png")
@@ -15,6 +15,27 @@ loadSprite("children", "/sprites/child.png")
 loadSprite("invis-wall", "sprites/wall.jpg")
 
 loadSprite("bakery", "/sprites/bakery.jpg")
+
+loadSprite("pretzel", "/sprites/pretzelstrip.png",{
+    sliceX: 9, 
+
+    anims: {
+    "idle":{
+        from: 0,
+        to: 0,
+        loop: true,
+    },
+    "run":{
+        from: 1,
+        to: 8,
+        loop: true,
+        speed: 10,
+    }
+}
+}
+
+)
+
 
 
 
@@ -216,7 +237,7 @@ pos: vec2(100, 200),
 
 "@": () => [
 sprite("pretzel"),
-scale(.2),
+scale(1.1),
 area(),
 body(),
 origin("bot"),
@@ -224,7 +245,7 @@ origin("bot"),
 ],
 "=": () => [
 sprite("floor"),
-scale(.175),
+scale(.62),
 area(),
 solid(),
 origin("bot"),
@@ -234,14 +255,16 @@ origin("bot"),
 "$": () => [
 sprite("salt"),
 scale(.175),
+pos(0,-10),
 area(),
 origin("bot"),
 "coin",
 ],
 "^": () => [
 sprite("stove"),
-scale(.15),
+scale(.2),
 area(),
+pos(0,-10),
 origin("bot"),
 "danger",
 "stove",
@@ -249,6 +272,7 @@ origin("bot"),
 ">": () => [
 sprite("portal"),
 scale(.4),
+pos(0,-5),
 area(),
 origin("bot"),
 "portal",
@@ -256,6 +280,7 @@ origin("bot"),
 ".": () =>[
     sprite("ketchup"),
     scale(.45),
+    pos(0,-10),
     area(),
     origin("bot"),
     "power",
@@ -264,6 +289,7 @@ origin("bot"),
  ",": () =>[
     sprite("mustard"),
     scale(.45),
+    pos(0,-10),
     area(),
     origin("bot"),
     "power",
@@ -273,6 +299,7 @@ origin("bot"),
     sprite("children"),
     scale(.15),
     area(),
+    pos(0,-10),
    // solid(),
     origin("bot"),
     "children",
@@ -355,14 +382,29 @@ gravity(2400)
 
     leftCancel = onKeyDown("left", () => {
         player.move(-SPEED, 0)
+        player.flipX(true)
+
+        if(player.curAnim() !== "run"){
+            player.play("run")
+        }
     })
 
     rightCancel = onKeyDown("right", () => {
         player.move(SPEED, 0)
+        player.flipX(false)
+        if(player.curAnim() !== "run"){
+            player.play("run")
+        }
     })
 
     
 }
+
+onKeyRelease(["left", "right"], () =>{
+    if (!isKeyDown("left") && !isKeyDown("right")){
+        player.play("idle")
+    }
+})
 
 // Movements
 
