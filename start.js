@@ -263,7 +263,10 @@ origin("bot"),
 "^": () => [
 sprite("stove"),
 scale(.2),
-area(),
+area({
+    width: 40,
+    height: 39,
+}),
 pos(0,-10),
 origin("bot"),
 "danger",
