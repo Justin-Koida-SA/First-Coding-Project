@@ -1,5 +1,7 @@
 import "./kaboom.js"
 
+import "./main.js"
+
 
 
 //loadSprite("pretzel", "/sprites/pretzel.png")
@@ -264,8 +266,8 @@ origin("bot"),
 sprite("stove"),
 scale(.2),
 area({
-    width: 40,
-    height: 39,
+    width: 140,
+    height: 100,
 }),
 pos(0,-10),
 origin("bot"),
@@ -301,7 +303,10 @@ origin("bot"),
  "+": () => [
     sprite("children"),
     scale(.15),
-    area(),
+    area({
+        width: 120,
+        height: 250,
+    }),
     pos(0,-10),
    // solid(),
     origin("bot"),
@@ -331,23 +336,28 @@ onKeyPress("r", ()=> {
     if(INVINSIBLE == "true"){
         JUMP = NJUMP
         SPEED = NSPEED
+        if(checkpoint < 3){
         checkpoint = checkpoint + 1
             go("game", {
         levelIdx: levelIdx + 1,
             score: 0,
         })
     }
+}
 })
 
 onKeyPress("t", ()=> {
     if(INVINSIBLE == "true"){
         JUMP = NJUMP
         SPEED = NSPEED
+        if (checkpoint > -1){
         checkpoint = checkpoint - 1
+
             go("game", {
         levelIdx: levelIdx - 1,
             score: 0,
         })
+    }
     }
 })
 
@@ -596,7 +606,7 @@ function start() {
 // Start with the "game" scene, with initial parameters
 SPEED = NSPEED,
 JUMP = NJUMP,
-go("game", {
+go("title", {
 levelIdx: 0,
 score: 0,
 })
