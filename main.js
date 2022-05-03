@@ -1,8 +1,34 @@
 import "./kaboom.js"
 
 scene("title", () => {
-    addButton("Start", vec2(650,200), () => go('game', {levelIdx: 1, score: 0}), )
-    addButton("Tutorial", vec2(650,400), () => go('game', {levelIdx: 0, score: 0}), )
+    addButton("Start", vec2(650,300), () => go('game', {levelIdx: 1, score: 0}), )
+    addButton("Tutorial", vec2(650,350), () => go('game', {levelIdx: 0, score: 0}), )
+	add([
+		pos(650, 150),
+		origin("center"),
+		color(0,100,200),
+		text("Pretzel Escape", {
+			size: 100,
+			font: "sinko",
+		})
+	])
+
+	add([
+		sprite("pretzel"),
+		scale(3),
+		origin("center"),
+		pos(650, 500),
+		"beggining",
+
+	])
+
+	const player = get("beggining")[0]
+	const SPEED = 150
+	onDraw(()=> {
+	player.move(SPEED,0)
+	
+	})
+	
 })
 
 
@@ -11,7 +37,7 @@ function addButton(txt, p, f) {
 	const btn = add([
 		text(txt,{
             font:"sinko",
-            size: 100,
+            size: 30,
 
 
         }),
