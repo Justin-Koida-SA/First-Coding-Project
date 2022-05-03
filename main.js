@@ -1,7 +1,7 @@
 import "./kaboom.js"
 
 scene("title", () => {
-    addButton("Start", vec2(650,300), () => go('game', {levelIdx: 1, score: 0}), )
+    addButton("Start", vec2(650,300), () => go('game', {levelIdx: 1, score: 0,}),)
     addButton("Tutorial", vec2(650,350), () => go('game', {levelIdx: 0, score: 0}), )
 	add([
 		pos(650, 150),
@@ -25,7 +25,13 @@ scene("title", () => {
 	const player = get("beggining")[0]
 	const SPEED = 150
 	onDraw(()=> {
-	player.move(SPEED,0)
+		if(player.curAnim() !== "run"){
+            player.play("run")
+        }
+		player.move(SPEED,0)
+		if (player.pos.x >= 1350){
+			player.pos.x = 0
+		}
 	
 	})
 	
