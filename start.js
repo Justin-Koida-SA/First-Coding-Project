@@ -102,7 +102,24 @@ const LEVELS = [
         "=           $       =              $            =         ",
         "=@   $      =   =                  =                      ",
         "==   =   =                                  ====          ",
-    ]
+    ],
+    //HARD LEVEL no room for this though :( to many levels
+    // [  
+    // "        ^ ^ ^$^===| +++  ^    +  +    +   |  ^         =",
+    // "      =========   =============================        =",
+    // " =                                              =      =",
+    // "   =| +  |^ $ + ^  + |    $ ^      ^             =    =",
+    // "========================   =====   ===            =    =",
+    // "=                                      =          =    =",
+    // "=                                        =        =    =",
+    // "=                            .             =      =    =",
+    // "=                          ^^=^^ ^^^$^^^ ^  =     =    =",
+    // "=          =     =     =======================    =    =",
+    // "=     =                                       =   =    =",
+    // "=@ =    |    ^+     |^    ^  ^    |$ +   +  |   ,= = > =",
+    // "========================================================",
+   
+    // ],
 ]
 
 scene("game", ({ levelIdx, score }) => {
@@ -134,7 +151,7 @@ scene("game", ({ levelIdx, score }) => {
 
         add([
             pos(-250, 50),
-            text("GOD MODE! Press 'c' to go into god mode. In god mode you can fly, move faster, be invincible, explore the level, and switch between different levels. The keys are up, left, right, and down arrows which makes you move resectivly. Press 'r' to move onto the next level and 't' to go back a level. If you would like to swtich back into normal mode, press 's'. To go into invinsible mode while keeping survival controls press 'i', to become mortal again press 'l'.", {
+            text("GOD MODE! Press 'c' to go into god mode. In god mode you can fly, move faster, be invincible, explore the level, and switch between different levels. The keys are up, left, right, and down arrows which makes you move resectivly. Press 'r' to move onto the next level and 't' to go back a level. If you would like to swtich back into normal mode, press 's'. To go into invinsible mode while keeping survival controls press 'i', to become mortal again press 'l'. * note you cannot skip the tutorial using 'r'.", {
                 width: 275,
                 size: 15,
             })
@@ -191,7 +208,7 @@ scene("game", ({ levelIdx, score }) => {
 
         add([
             pos(1600, 100),
-            text("These are your salt friends. In order to leave the bakery you must collect all the salt. Make sure to not leave anyone behind!", {
+            text("These are your salt friends. In order to leave the bakery you must collect all the salt. Make sure to not leave anyone behind: it's bad luck!", {
                 width: 400,
                 size: 12,
                 font: "sinko",
@@ -545,7 +562,7 @@ scene("game", ({ levelIdx, score }) => {
     player.onCollide("portal", () => {
         //take out the if score <5 STATEMENT and else if score >=5 for original
         if (score < 5) {
-            death = "You left a salt friend behind, you died from EMOTIONAL DAMAGE..."
+            death = "Bad luck! You left a salt friend behind, you died from EMOTIONAL DAMAGE..."
             go("lose")
         }
         else if (score >= 5) {
@@ -597,7 +614,7 @@ scene("lose", () => {
 
 
     add([
-        text(death + ". Press 'space' to respawn or p to go to Tutorial", {
+        text(death + ". Press 'space' to respawn or 'p' to go do Tutorial", {
             size: 50,
             font: "sink",
             width: 1000,
@@ -605,18 +622,15 @@ scene("lose", () => {
         pos(200, 200),
     ])
     // Press any key to go back
-    
     onKeyPress("space", respawn)
-    
     onKeyPress("p", tut)
-    
 
 })
 
 scene("win", () => {
 
     add([
-        text(`You have sucessfully managed to escape the haunted bakery with the evil children and stoves. Congradulations!!! Press any key to restart.`, {
+        text(`You have sucessfully managed to escape the haunted bakery with the evil children and stoves. Congratulations!!! Press any key to restart.`, {
             width: 900,
             size: 50,
         }),
@@ -640,15 +654,15 @@ function start() {
 
 function respawn() {
     // Start with the "game" scene, with initial parameters
-       
+    SPEED = NSPEED,
+        JUMP = NJUMP,
+
+     
         go("game", {
             levelIdx: checkpoint,
             score: 0,
         })
-       
-        SPEED = NSPEED
-        JUMP = NJUMP    
-    
+      
 }
 
 function tut() {
@@ -663,6 +677,80 @@ function tut() {
         SPEED = NSPEED
         JUMP = NJUMP    
     
+}
+
+//We moved our title scene here b/c import from main doesn't work for some reason on this neo cities
+
+scene("title", () => {
+    addButton("Start", vec2(650,300), () => go('game', {levelIdx: 1, score: 0,}))
+    addButton("Tutorial", vec2(650,350), () => go('game', {levelIdx: 0, score: 0}) )
+	add([
+		pos(650, 150),
+		origin("center"),
+		color(300,100,200),
+		text("Pretzel Escape", {
+			size: 100,
+			font: "sinko",
+		})
+	])
+
+	add([
+		sprite("pretzel"),
+		scale(3),
+		origin("center"),
+		pos(650, 500),
+		"beggining",
+
+	])
+
+	const player = get("beggining")[0]
+	const SPEED = 150
+	onDraw(()=> {
+		if(player.curAnim() !== "run"){
+            player.play("run")
+        }
+		player.move(SPEED,0)
+		if (player.pos.x >= 1350){
+			player.pos.x = 0
+		}
+	
+	})
+	
+})
+
+
+function addButton(txt, p, f) {
+
+	const btn = add([
+		text(txt,{
+            font:"sinko",
+            size: 30,
+
+
+        }),
+		pos(p),
+		area({ cursor: "pointer", }),
+		scale(1),
+		origin("center"),
+	])
+
+	btn.onClick(f)
+
+	btn.onUpdate(() => {
+		if (btn.isHovering()) {
+			const t = time() * 10
+			btn.color = rgb(
+				wave(0, 255, t),
+				wave(0, 255, t + 2),
+				wave(0, 255, t + 4)
+			)
+			btn.scale = vec2(1.2)
+		} else {
+			btn.scale = vec2(1)
+			btn.color = rgb()
+		}
+	})
+
 }
 
 start()
