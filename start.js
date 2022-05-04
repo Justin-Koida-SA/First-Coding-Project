@@ -104,13 +104,13 @@ const LEVELS = [
 
     ],
     [
-        "=      $                 =======.                         ",
-        "= ,    =      =      =         =                          ",
+        "=            =      =      =======.                       ",
+        "= ,     =                        =                        ",
         "= =                            =                       >  ",
-        "=    =                  =      =                      ===  ",
-        "=       ==         =         = =            =      $      ",
-        "=             =           =       =               =       ",
-        "=                       =                                 ",
+        "=    =                  =      =                      === ",
+        "=       ==         =         = =  =         =      $      ",
+        "=             =           =                       =       ",
+        "=                       =        =                        ",
         "=           $       =              $            =         ",
         "=@   $      =   =                  =                      ",
         "==   =   =                                  ====          ",
@@ -140,50 +140,67 @@ scene("game", ({ levelIdx, score }) => {
         add([
             pos(0, 0),
 
-            text("Ah yes you have awoken. My friend, you have been reborn as a sentient pretzel. Dangerous things are trying to kill you. You must save all your salt friends and escape the bakery.", {
+            text("Ah yes you have awoken. Due to your horrible karma in your previous life, you have been reborn as a sentient pretzel. Your objective is to escape the haunted bakery, which could be your grave, while saving your salt friends from this haunted place.", {
                 width: 600,
+                size: 12,
+                font: "sinko",
             }),
         ])
 
         add([
-            pos(-200, 100),
-            text("GOD MODE! Press 'c' to go into god mode. In god mode you can fly, move faster, be invincible, explore the level, and switch between different levels. The keys are up, left, right, and down arrows which makes you move resectivly. Press 'r' to move onto the next level and 't' to go back a level. If you would like to swtich back into normal mode, press 's'.", {
+            pos(-250, 50),
+            text("GOD MODE! Press 'c' to go into god mode. In god mode you can fly, move faster, be invincible, explore the level, and switch between different levels. The keys are up, left, right, and down arrows which makes you move resectivly. Press 'r' to move onto the next level and 't' to go back a level. If you would like to swtich back into normal mode, press 's'. To go into invinsible mode while keeping survival controls press 'i', to become mortal again press 'l'.", {
                 width: 275,
+                size: 15,
             })
         ])
 
         add([
             pos(250, 75),
-            text("TUTORIAL")
+            text("TUTORIAL",{
+                size: 12,
+                font: "sinko",}
+                )
+            
         ])
 
         add([
             pos(200, 100),
-            text("press the right arrow key to move right.")
+            text("press the right arrow key to move right.",{
+                size: 12,
+                font: "sinko",})
         ])
 
         add([
             pos(200, 125),
-            text("press the left arrow key to move left.")
+            text("press the left arrow key to move left.",{
+                size: 12,
+                font: "sinko",})
         ])
 
 
         add([
             pos(200, 150),
-            text("Press the space key in order to jump")
+            text("Press the space key in order to jump",{
+                size: 12,
+                font: "sinko",})
         ])
 
         add([
             pos(600, 100),
             text("This is a furnace. Make sure not to touch it or you will burn to death! Jump over the furnace in order to dodge it", {
                 width: 400,
+                size: 12,
+                font: "sinko",
             })
         ])
 
         add([
             pos(1100, 100),
-            text("AAAHH, its a child! Did you know 96% of pretzel fatalities are due to small children. Dodge the hungry evil beasts in order to live.", {
-                width: 400
+            text("AAAHH, its a child! Did you know 96% of pretzel fatalities are due to small children. Dodge the hungry evil spooky beasts in order to live.", {
+                width: 400,
+                size: 12,
+                font: "sinko",
             })
         ])
 
@@ -191,6 +208,8 @@ scene("game", ({ levelIdx, score }) => {
             pos(1600, 100),
             text("These are your salt friends. In order to leave the bakery you must collect all the salt. Make sure to not leave anyone behind!", {
                 width: 400,
+                size: 12,
+                font: "sinko",
             })
         ])
 
@@ -198,6 +217,8 @@ scene("game", ({ levelIdx, score }) => {
             pos(2100, 100),
             text("This is the mustard powerup. Collect it in order to gain a boost in speed.", {
                 width: 400,
+                size: 12,
+                font: "sinko",
             })
         ])
 
@@ -205,6 +226,8 @@ scene("game", ({ levelIdx, score }) => {
             pos(2600, 100),
             text("This is the ketchup powerup. Collect it in order to boost your jump height.", {
                 width: 400,
+                size: 12,
+                font: "sinko",
             })
         ])
 
@@ -212,6 +235,8 @@ scene("game", ({ levelIdx, score }) => {
             pos(3100, 100),
             text("Touch the portal to escape the bakery. Remeber, you need to collect all your salt friends!", {
                 width: 400,
+                size: 12,
+                font: "sinko",
             })
         ])
     }
@@ -256,7 +281,7 @@ scene("game", ({ levelIdx, score }) => {
             sprite("stove"),
             scale(.2),
             area({
-                width: 140,
+                width: 142,
                 height: 100,
             }),
             pos(0, -10),
@@ -295,7 +320,7 @@ scene("game", ({ levelIdx, score }) => {
             scale(.15),
             area({
                 width: 120,
-                height: 250,
+                height: 275,
             }),
             pos(0, -10),
             // solid(),
@@ -323,7 +348,7 @@ scene("game", ({ levelIdx, score }) => {
 
 
     onKeyPress("r", () => {
-        if (INVINSIBLE == "true") {
+        if (INVINSIBLE == "true" && levelIdx > 0) {
             JUMP = NJUMP
             SPEED = NSPEED
             checkpoint = checkpoint + 1
@@ -336,7 +361,7 @@ scene("game", ({ levelIdx, score }) => {
     })
 
     onKeyPress("t", () => {
-        if (INVINSIBLE == "true") {
+        if (INVINSIBLE == "true" && levelIdx > 1) {
             JUMP = NJUMP
             SPEED = NSPEED
             checkpoint = checkpoint - 1
