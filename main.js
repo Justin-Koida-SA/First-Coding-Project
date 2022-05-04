@@ -6,7 +6,7 @@ scene("title", () => {
 	add([
 		pos(650, 150),
 		origin("center"),
-		color(0,100,200),
+		color(300,100,200),
 		text("Pretzel Escape", {
 			size: 100,
 			font: "sinko",

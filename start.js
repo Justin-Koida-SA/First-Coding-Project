@@ -4,11 +4,9 @@ import "./main.js"
 
 
 
-//loadSprite("pretzel", "/sprites/pretzel.png")
 loadSprite("salt", "/sprites/salt.png")
 loadSprite("stove", "/sprites/stove1.png")
 loadSprite("floor", "/sprites/floor.png")
-//loadSprite("child", "/sprites/child.png")
 loadSprite("portal", "/sprites/portal.png")
 loadSprite("ketchup", "/sprites/ketchup.png")
 loadSprite("mustard", "/sprites/mustard.png")
@@ -36,16 +34,6 @@ loadSprite("pretzel", "/sprites/pretzelstrip.png", {
 }
 
 )
-
-
-
-
-// Extend our game with multiple scenes
-
-// Start game
-//kaboom()
-
-// Load assets
 
 
 //N means normal -- K means ketchuo --- M means mustard
@@ -104,7 +92,7 @@ const LEVELS = [
 
     ],
     [
-        "=            =      =      =======.                       ",
+        "=       $    =      =      =======.                       ",
         "= ,     =                        =                        ",
         "= =                            =                       >  ",
         "=    =                  =      =                      === ",
@@ -117,8 +105,6 @@ const LEVELS = [
     ]
 ]
 
-// Define a scene called "game". The callback will be run when we go() to the scene
-// Scenes can accept argument from go()
 scene("game", ({ levelIdx, score }) => {
     var background = (x, y) => {
         add([
@@ -126,7 +112,6 @@ scene("game", ({ levelIdx, score }) => {
             scale(1.9),
             sprite("bakery"),
             pos(x, y),
-            //origin("topleft"),
             area(),
         ])
     }
@@ -624,14 +609,16 @@ scene("lose", () => {
 
 })
 
-scene("win", ({ score }) => {
+scene("win", () => {
 
     add([
-        //text(`You grabbed ${score} coins!!!`, {
-        text(`Congrats! You have sucessfully escaped the bakery.`, {
-            width: width(),
+        text(`You have sucessfully managed to escape the haunted bakery with the evil children and stoves. Congradulations!!! Press any key to restart.`, {
+            width: 900,
+            size: 50,
         }),
-        pos(12),
+        pos(650, 300),
+        origin("center"),
+        color(300,300,100),
     ])
 
     onKeyPress(start)
