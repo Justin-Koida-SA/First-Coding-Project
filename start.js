@@ -597,7 +597,7 @@ scene("lose", () => {
 
 
     add([
-        text(death + ". Press 'space' to respawn", {
+        text(death + ". Press 'space' to respawn or p to go to Tutorial", {
             size: 50,
             font: "sink",
             width: 1000,
@@ -605,7 +605,11 @@ scene("lose", () => {
         pos(200, 200),
     ])
     // Press any key to go back
+    
     onKeyPress("space", respawn)
+    
+    onKeyPress("p", tut)
+    
 
 })
 
@@ -636,14 +640,29 @@ function start() {
 
 function respawn() {
     // Start with the "game" scene, with initial parameters
-    SPEED = NSPEED,
-        JUMP = NJUMP,
-
-        
+       
         go("game", {
             levelIdx: checkpoint,
             score: 0,
         })
+       
+        SPEED = NSPEED
+        JUMP = NJUMP    
+    
+}
+
+function tut() {
+    // Start with the "game" scene, with initial parameters
+       
+        go("game", {
+            levelIdx: 0,
+            score: 0,
+        })
+       
+        checkpoint = 1
+        SPEED = NSPEED
+        JUMP = NJUMP    
+    
 }
 
 start()

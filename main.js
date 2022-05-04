@@ -1,8 +1,8 @@
 import "./kaboom.js"
 
 scene("title", () => {
-    addButton("Start", vec2(650,300), () => go('game', {levelIdx: 1, score: 0,}),)
-    addButton("Tutorial", vec2(650,350), () => go('game', {levelIdx: 0, score: 0}), )
+    addButton("Start", vec2(650,300), () => go('game', {levelIdx: 1, score: 0,}))
+    addButton("Tutorial", vec2(650,350), () => go('game', {levelIdx: 0, score: 0}) )
 	add([
 		pos(650, 150),
 		origin("center"),
@@ -61,7 +61,7 @@ function addButton(txt, p, f) {
 			btn.color = rgb(
 				wave(0, 255, t),
 				wave(0, 255, t + 2),
-				wave(0, 255, t + 4),
+				wave(0, 255, t + 4)
 			)
 			btn.scale = vec2(1.2)
 		} else {
